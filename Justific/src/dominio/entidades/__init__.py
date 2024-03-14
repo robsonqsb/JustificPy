@@ -1,0 +1,1 @@
+from Justific.src.dominio.entidades.EntidadeBase import EntidadeBase
