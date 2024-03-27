@@ -18,6 +18,7 @@ class RepositorioBase(IRepositorioBase):
         return self._colecao.find_one({ "_id": ObjectId(_id), "excluido": False })
 
     def obter(self, filtro: dict = None) -> List:
+        filtro = filtro if filtro is not None else {}
         filtro["excluido"] = False
         return self._colecao.find(filtro)
 

@@ -21,12 +21,12 @@ def usuario_obter_por_id(id: str = Query(None)):
     '''
     return registrador_ioc.controller_usuario.obter_por_id(id)
 
-@app.post('/api/usuario/obter')
-def usuario_obter(filtro: FiltroUsuarioDto = Body(...)):
+@app.post('/api/usuario/listar')
+def usuario_listar(filtro: FiltroUsuarioDto = Body(None)):
     '''
     Obter os registros de usuários com a possibilidade de filtro
     '''
-    return registrador_ioc.controller_usuario.obter(filtro.__dict__)
+    return registrador_ioc.controller_usuario.obter(filtro.__dict__ if filtro is not None else None)
 
 @app.post("/api/usuario/incluir")
 def usuario_incluir(usuario: UsuarioInclusaoDto = Body(...)):
@@ -36,5 +36,5 @@ def usuario_incluir(usuario: UsuarioInclusaoDto = Body(...)):
     return registrador_ioc.controller_usuario.incluir(usuario.__dict__)
 
 if __name__ == "__main__":
-    usuario_inclusao = UsuarioInclusaoDto(login="usuario3",senha="11111")
+    usuario_inclusao = UsuarioInclusaoDto(login="usuario5",senha="33333")
     print(usuario_incluir(usuario_inclusao))

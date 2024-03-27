@@ -8,4 +8,5 @@ class Usuario(EntidadeBase):
     def __init__(self, _id: str = None, data_criacao: datetime = None, login: str = None, senha: str = None):
         super().__init__(_id, data_criacao)
         self.login = login
-        self.senha = senha
+        if senha is not None:
+            self.senha = senha

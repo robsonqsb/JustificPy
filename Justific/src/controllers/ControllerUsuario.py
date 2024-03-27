@@ -20,7 +20,7 @@ class ControllerUsuario(ControllerBase, IControllerUsuario):
     def mapear_entidade(self, registro: dict) -> Usuario:
         id = str(registro['_id']) if '_id' in registro else None
         data_criacao = registro['data_criacao'] if 'data_criacao' in registro else None
-        senha = registro['senha'] if 'senha' in registro else None
+        senha = registro['senha'] if 'senha' in registro and '_id' not in registro else None
         usuario = Usuario(id, data_criacao, registro['login'], senha)
         return usuario
     
