@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from IRepositorioBase import IRepositorioBase
+from Justific.src.dominio.interfaces.repositorios.IRepositorioBase import IRepositorioBase
 
 class IRepositorioUsuario(IRepositorioBase, ABC):
     '''

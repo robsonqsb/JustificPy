@@ -1,15 +1,40 @@
-from fastapi import FastAPI, Query
-from Justific.src.data.repositorios.RepositorioUsuario import RepositorioUsuario
+from fastapi import Body, FastAPI, Query
+from Justific.src.dominio.dtos.FiltroUsuarioDto import FiltroUsuarioDto
+from Justific.src.dominio.dtos.UsuarioInclusaoDto import UsuarioInclusaoDto
+from Justific.src.infra.RegistradorIoc import RegistradorIoc
 
 app = FastAPI()
+registrador_ioc = RegistradorIoc()
+registrador_ioc.registrar()
 
-@app.get('/api/usuario/efetuar_login')
-def efetuar_login(login: str = Query(None), senha: str = Query(None)):
+@app.get('/api/usuario/efetuar_login', description = 'Login através de usuário e senha')
+def usuario_efetuar_login(login: str = Query(None), senha: str = Query(None)):
     '''
     Endpoint para autenticação no sistema
     '''
-    repositorio_usuario = RepositorioUsuario()
-    return repositorio_usuario.confirmar_autenticacao(login, senha)
+    return registrador_ioc.controller_usuario.confirmar_dados_login(login, senha)
+
+@app.get('/api/usuario/obter_por_id')
+def usuario_obter_por_id(id: str = Query(None)):
+    '''
+    Obter entidade por id correspondente
+    '''
+    return registrador_ioc.controller_usuario.obter_por_id(id)
+
+@app.post('/api/usuario/obter')
+def usuario_obter(filtro: FiltroUsuarioDto = Body(...)):
+    '''
+    Obter os registros de usuários com a possibilidade de filtro
+    '''
+    return registrador_ioc.controller_usuario.obter(filtro.__dict__)
+
+@app.post("/api/usuario/incluir")
+def usuario_incluir(usuario: UsuarioInclusaoDto = Body(...)):
+    '''
+    Incluir um novo usuário
+    '''
+    return registrador_ioc.controller_usuario.incluir(usuario.__dict__)
 
 if __name__ == "__main__":
-    print(efetuar_login('admin', '12345'))
+    usuario_inclusao = UsuarioInclusaoDto(login="usuario3",senha="11111")
+    print(usuario_incluir(usuario_inclusao))

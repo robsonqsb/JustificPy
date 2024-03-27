@@ -1,11 +1,11 @@
 from datetime import datetime
-from bson import ObjectId
 
 class EntidadeBase():
     '''
     Entidade padrão do sistema
     '''
-    def __init__(self):
-        self._id = ObjectId()
-        self.data_criacao = datetime.now()
+    def __init__(self, _id: str = None, data_criacao: datetime = None):
+        self._id = _id if _id is not None else None
+        self.data_criacao = data_criacao if data_criacao is not None else datetime.now()
         self.excluido = False
+        
