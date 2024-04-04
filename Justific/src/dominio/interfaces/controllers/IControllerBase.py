@@ -12,7 +12,7 @@ class IControllerBase(ABC):
         pass
 
     @abstractmethod
-    def mapear_entidade(self, registro) -> Type[EntidadeBase]:
+    def mapear_entidade(self, registro: dict, visualizacao: bool = False) -> Type[EntidadeBase]:
         '''
         Método para mapear o registro do banco em entidade
         '''
@@ -36,8 +36,12 @@ class IControllerBase(ABC):
         '''
 
     @abstractmethod
-    def atualizar(self, entidade: Type[EntidadeBase]) -> bool:
+    def atualizar(self, dados_alteracao: dict = None) -> bool:
         '''
         Método para atualizar um registro na base de acordo com o id informado e entidade
         '''
-        
+    @abstractmethod
+    def excluir(self, id: str = None) -> bool:
+        '''
+        Método para excluir logicamente um registro no banco pelo id
+        '''

@@ -17,10 +17,10 @@ class ControllerUsuario(ControllerBase, IControllerUsuario):
     def confirmar_dados_login(self, login: str, senha: str) -> bool:
         return self._repositorio_usuario.confirmar_dados_autenticacao(login, senha)
 
-    def mapear_entidade(self, registro: dict) -> Usuario:
+    def mapear_entidade(self, registro: dict, visualizacao: bool = False) -> Usuario:
         id = str(registro['_id']) if '_id' in registro else None
-        data_criacao = registro['data_criacao'] if 'data_criacao' in registro else None
-        senha = registro['senha'] if 'senha' in registro and '_id' not in registro else None
+        data_criacao = registro['data_criacao'] if 'data_criacao' in registro and visualizacao else None
+        senha = registro['senha'] if 'senha' in registro and not visualizacao else None
         usuario = Usuario(id, data_criacao, registro['login'], senha)
         return usuario
     

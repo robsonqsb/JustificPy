@@ -12,19 +12,23 @@ class ControllerBase(IControllerBase):
 
     def obter_por_id(self, id: str) -> Type[EntidadeBase]:
         registro = self._repositorio.obter_por_id(id)
-        return self.mapear_entidade(registro)
+        return self.mapear_entidade(registro, True)
 
     def obter(self, filtro: dict = None) -> List[Type[EntidadeBase]]:
         registros = self._repositorio.obter(filtro)
         entidades = []
         for registro in registros:
-            entidades.append(self.mapear_entidade(registro))
+            entidades.append(self.mapear_entidade(registro, True))
         return entidades
 
     def incluir(self, dados_inclusao: dict = None) -> str:
         entidade = self.mapear_entidade(dados_inclusao)
         return self._repositorio.incluir(entidade)
 
-    def atualizar(self, entidade: EntidadeBase) -> bool:
+    def atualizar(self, dados_alteracao: dict = None) -> bool:
+        entidade = self.mapear_entidade(dados_alteracao)
         return self._repositorio.atualizar(entidade)
-    
+
+    def excluir(self, id: str = None) -> bool:
+        return self._repositorio.excluir(id)
+ 

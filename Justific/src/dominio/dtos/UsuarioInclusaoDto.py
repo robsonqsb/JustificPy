@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class UsuarioInclusaoDto(BaseModel):
+class UsuarioDto(BaseModel):
     '''
     DTO para inclusão de um novo usuário
     '''

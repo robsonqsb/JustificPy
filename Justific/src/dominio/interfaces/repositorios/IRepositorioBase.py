@@ -34,4 +34,10 @@ class IRepositorioBase(ABC):
         '''
         Método para atualizar um registro de acordo com os dados da entidade
         '''
+
+    @abstractmethod
+    def excluir(self, id: str = None) -> bool:
+        '''
+        Método para excluir logicamente um registro do banco de dados
+        '''
         
