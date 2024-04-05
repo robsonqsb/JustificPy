@@ -1,4 +1,5 @@
 from ast import List
+from datetime import datetime
 from typing import Type
 from bson import ObjectId
 from pymongo import MongoClient
@@ -30,13 +31,14 @@ class RepositorioBase(IRepositorioBase):
     def atualizar(self, entidade: EntidadeBase) -> bool:
         id_atualizacao = entidade._id
         dados_alteracao = self.converter_entidade_para_dicionario(entidade)
+        dados_alteracao['alterado_em'] = datetime.now()
         resultado = self._colecao.update_one({ "_id": ObjectId(id_atualizacao)}, { "$set": dados_alteracao })
         return resultado.modified_count > 0
 
     def excluir(self, id: str = None) -> bool:
         if id is None:
             return False
-        resultado = self._colecao.update_one({ "_id": ObjectId(id) }, { "$set": { "excluido" : True } })
+        resultado = self._colecao.update_one({ "_id": ObjectId(id) }, { "$set": { "excluido" : True, "alterado_em" : datetime.now() } })
         return resultado.modified_count > 0
 
     def converter_entidade_para_dicionario(self, entidade: Type[EntidadeBase]) -> dict:

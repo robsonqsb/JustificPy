@@ -10,11 +10,10 @@ class RegistradorIoc():
     '''
     def __init__(self):
         self._repositorio_usuario = Type[IRepositorioUsuario]
-        self.controller_usuario = Type[IControllerUsuario]
 
-    def registrar(self):
+    def registrar_controller_usuario(self) -> Type[IControllerUsuario]:
         '''
         Registra de fato as interfaces com as respectivas classes concretas
         '''
         self._repositorio_usuario = RepositorioUsuario()
-        self.controller_usuario = ControllerUsuario(self._repositorio_usuario)
+        return ControllerUsuario(self._repositorio_usuario)
