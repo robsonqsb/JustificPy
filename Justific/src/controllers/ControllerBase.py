@@ -12,7 +12,7 @@ class ControllerBase(IControllerBase):
 
     def obter_por_id(self, id: str) -> Type[EntidadeBase]:
         registro = self._repositorio.obter_por_id(id)
-        return self.mapear_entidade(registro, True)
+        return self.mapear_entidade(registro, True) if registro is not None else None
 
     def obter(self, filtro: dict = None) -> List[Type[EntidadeBase]]:
         registros = self._repositorio.obter(filtro)

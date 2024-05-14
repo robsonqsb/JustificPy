@@ -5,4 +5,6 @@ class RepositorioOrganizacao(RepositorioBase, IRepositorioOrganizacao):
     '''
     Classe de repositório para manipulação dos dados de organização
     '''
-    
+    def __init__(self):
+        super().__init__('organizacao')
+        
