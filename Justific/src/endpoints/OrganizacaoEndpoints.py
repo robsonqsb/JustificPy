@@ -23,7 +23,7 @@ def listar(filtro: FiltroOrganizacaoDto = Body(None)):
 @router.post("/api/organizacao/incluir", description = 'Inclusão de organização')
 def incluir(organizacao: OrganizacaoDto = Body(...)):
     '''
-    Incluir um novo usuário
+    Incluir uma nova organização
     '''
     return controller_organizacao.incluir(organizacao.__dict__)
 
